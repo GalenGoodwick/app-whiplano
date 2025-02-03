@@ -26,9 +26,9 @@ export default function SignupComponent() {
         <div className="flex flex-col justify-center p-8">
           <h2 className="text-3xl text-[#313131] font-semibold mb-2">Sign up</h2>
           <p className="text-gray-500 text-sm mb-6 mt-4">
-            Let's get you all set up so you can access your personal account.
+            Let&apos;s get you all set up so you can access your personal account.
           </p>
-
+ya
           <form className="space-y-4">
             {/* Name Fields */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
