@@ -6,11 +6,85 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import authService from "@/api-handlers/services/auth.service";
+import { ISignupPayload } from "@/api-handlers/modal/IatuhVM";
+import { useToast } from "@/hooks/use-toast";
 
 export default function SignupComponent() {
+  const { toast } = useToast();
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agree, setAgree] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Validate form fields
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
+      toast({
+        variant: "destructive",
+        title: "Signup Failed",
+        description: "Please fill in all required fields.",
+      })
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast({
+        variant: "destructive",
+        title: "Signup Failed",
+        description: "Passwords do not match.",
+      })
+      return;
+    }
+
+    if (!agree) {
+      toast({
+        variant: "destructive",
+        title: "Signup Failed",
+        description: "Please agree to the terms and conditions.",
+      })
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const payload: ISignupPayload = {
+        username: firstName + lastName,
+        email,
+        password
+      } 
+      const response = await authService.signup(payload);
+      console.log("Signup successful:", response);
+      // Handle successful signup (e.g., redirect, show success message, etc.)
+      toast({
+        variant: "default",
+        title: "Signup Successful",
+        description: "Your account has been created successfully.",
+      })
+
+    } catch (err) {
+      toast({
+        variant: "destructive",
+        title: "Signup Failed",
+        description: "An error occurred during signup.",
+      })
+      console.error("Signup error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6">
@@ -29,16 +103,30 @@ export default function SignupComponent() {
             Let's get you all set up so you can access your personal account.
           </p>
 
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSignup}>
             {/* Name Fields */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700">First Name</label>
-                <Input type="text" placeholder="John" className="mt-1" />
+                <Input
+                  type="text"
+                  placeholder="John"
+                  className="mt-1"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">Last Name</label>
-                <Input type="text" placeholder="Doe" className="mt-1" />
+                <Input
+                  type="text"
+                  placeholder="Doe"
+                  className="mt-1"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  required
+                />
               </div>
             </div>
 
@@ -46,11 +134,24 @@ export default function SignupComponent() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700">Email</label>
-                <Input type="email" placeholder="john.doe@gmail.com" className="mt-1" />
+                <Input
+                  type="email"
+                  placeholder="john.doe@gmail.com"
+                  className="mt-1"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">Phone Number</label>
-                <Input type="tel" placeholder="+123 456 7890" className="mt-1" />
+                <Input
+                  type="tel"
+                  placeholder="+123 456 7890"
+                  className="mt-1"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
               </div>
             </div>
 
@@ -62,6 +163,9 @@ export default function SignupComponent() {
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
                   className="mt-1 pr-10"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
                 <button
                   type="button"
@@ -80,6 +184,9 @@ export default function SignupComponent() {
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="••••••••"
                   className="mt-1 pr-10"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
                 />
                 <button
                   type="button"
@@ -99,6 +206,7 @@ export default function SignupComponent() {
                 className="mr-2"
                 checked={agree}
                 onChange={() => setAgree(!agree)}
+                required
               />
               <label htmlFor="agree" className="text-gray-600">
                 I agree to all the <Link href="#" className="text-blue-500 hover:underline">Terms</Link> and 
@@ -106,7 +214,11 @@ export default function SignupComponent() {
               </label>
             </div>
 
-            <Button className="w-full bg-pink-500 hover:bg-pink-600">Create account</Button>
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+
+            <Button type="submit" className="w-full bg-pink-500 hover:bg-pink-600" disabled={loading}>
+              {loading ? "Creating account..." : "Create account"}
+            </Button>
 
             <p className="text-center text-sm text-gray-600">
               Already have an account? <Link href="#" className="text-pink-500 hover:underline">Login</Link>

@@ -6,9 +6,39 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import authService from "@/api-handlers/services/auth.service";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Login() {
+
+  const { toast } = useToast();
+
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await authService.login({ email, password });
+      console.log("Login successful:", response);
+      // Handle successful login (e.g., redirect, store token, etc.)
+    } catch (err) {
+      toast({
+        variant: "destructive",
+        title: "Login Failed",
+        description: "Invalid email or password",
+      })
+      console.error("Login failed:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6">
@@ -23,12 +53,19 @@ export default function Login() {
         {/* Left Side - Login Form */}
         <div className="flex flex-col justify-center p-8">
           <h2 className="text-3xl text-[#313131] font-semibold mb-2">Login</h2>
-          <p className="text-gray-500 text-sm mb-6 mt-4">Login to access your Travelwise account</p>
+          <p className="text-gray-500 text-sm mb-6 mt-4">Login to access your Whiplano account</p>
 
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleLogin}>
             <div>
               <label className="block text-sm font-medium text-gray-700">Email</label>
-              <Input type="email" placeholder="john.doe@gmail.com" className="mt-1" />
+              <Input
+                type="email"
+                placeholder="john.doe@gmail.com"
+                className="mt-1"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">Password</label>
@@ -37,6 +74,9 @@ export default function Login() {
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
                   className="mt-1 pr-10"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
                 <button
                   type="button"
@@ -48,6 +88,8 @@ export default function Login() {
               </div>
             </div>
 
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+
             <div className="flex items-center justify-between text-sm">
               <div className="flex items-center">
                 <input type="checkbox" id="remember" className="mr-2" />
@@ -56,10 +98,12 @@ export default function Login() {
               <Link href="#" className="text-pink-500 hover:underline">Forgot Password?</Link>
             </div>
 
-            <Button className="w-full bg-pink-500 hover:bg-pink-600">Login</Button>
+            <Button type="submit" className="w-full bg-pink-500 hover:bg-pink-600" disabled={loading}>
+              {loading ? "Logging in..." : "Login"}
+            </Button>
 
             <p className="text-center text-sm text-gray-600">
-              Don’t have an account? <Link href="#" className="text-pink-500 hover:underline">Sign up</Link>
+              Don’t have an account? <Link href="/signup" className="text-pink-500 hover:underline">Sign up</Link>
             </p>
           </form>
 
@@ -71,7 +115,6 @@ export default function Login() {
                 <Image src="/google-icon.svg" alt="Google" width={20} height={20} />
                 Google
               </Button>
-              
             </div>
           </div>
         </div>
