@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect,useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import authService from "@/api-handlers/services/auth.service";
 import { ISignupPayload } from "@/api-handlers/modal/IatuhVM";
@@ -24,6 +24,14 @@ export default function SignupComponent() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showPopup, setShowPopup] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowPopup(false);
+    }, 10000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,6 +96,13 @@ export default function SignupComponent() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6">
+      {/* Popup Notification */}
+      {showPopup && (
+        <div className="absolute top-10 bg-gray-800 text-white py-2 px-4 rounded-md shadow-lg animate-fade-in">
+          This is a demo page. The sign functionality is not active.
+        </div>
+      )}
+
       {/* Header - Logo */}
       <div className="absolute top-6 left-6 flex items-center gap-2 px-3 md:px-10">
         <Image src="/WhiplanoLogo.png" alt="Whiplano Logo" width={40} height={40} />
