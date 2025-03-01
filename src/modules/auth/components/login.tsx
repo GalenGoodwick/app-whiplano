@@ -121,7 +121,7 @@ export default function Login() {
 
         {/* Right Side - Image */}
         <div className="hidden md:flex items-center justify-center">
-          <Image src="/login-left.png" alt="Abstract Illustration" width={616} height={816} className="object-cover" />
+          <Image src="/login-new.png" alt="Abstract Illustration" width={616} height={816} className="object-cover" />
         </div>
       </div>
     </div>
