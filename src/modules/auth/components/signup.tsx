@@ -101,7 +101,7 @@ export default function SignupComponent() {
       <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-10 overflow-hidden">
         {/* Left Side - Signup Form */}
         <div className="flex flex-col justify-center p-8">
-          <h2 className="text-3xl text-[#313131] font-semibold mb-2">
+          <h2 className="text-3xl text-[#313131] font-semibold mb-2 mt-5">
             Sign up
           </h2>
           <p className="text-gray-500 text-sm mb-6 mt-4">
@@ -271,7 +271,7 @@ export default function SignupComponent() {
 
             <p className="text-center text-sm text-gray-600">
               Already have an account?{" "}
-              <Link href="#" className="text-pink-500 hover:underline">
+              <Link href="/login" className="text-pink-500 hover:underline">
                 Login
               </Link>
             </p>
