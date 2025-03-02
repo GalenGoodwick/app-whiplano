@@ -1,4 +1,4 @@
-import SignupComponent from "@/modules/auth/components/signup";
+import SignupComponent from "@/modules/auth/components/signupBase";
 
 export default function SingupPage() {
   
