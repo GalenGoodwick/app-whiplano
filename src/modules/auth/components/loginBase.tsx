@@ -95,7 +95,7 @@ export default function Login() {
                 <input type="checkbox" id="remember" className="mr-2" />
                 <label htmlFor="remember" className="text-gray-600">Remember me</label>
               </div>
-              <Link href="#" className="text-pink-500 hover:underline">Forgot Password?</Link>
+              <Link href="/forgot_password" className="text-pink-500 hover:underline">Forgot Password?</Link>
             </div>
 
             <Button type="submit" className="w-full bg-pink-500 hover:bg-pink-600" disabled={loading}>

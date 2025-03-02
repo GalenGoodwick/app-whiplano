@@ -248,11 +248,11 @@ export default function SignupComponent() {
               />
               <label htmlFor="agree" className="text-gray-600">
                 I agree to all the{" "}
-                <Link href="#" className="text-blue-500 hover:underline">
+                <Link href="/terms" className="text-blue-500 hover:underline">
                   Terms
                 </Link>{" "}
                 and
-                <Link href="#" className="text-pink-500 hover:underline">
+                <Link href="/privacy_policies" className="text-pink-500 hover:underline">
                   {" "}
                   Privacy Policies
                 </Link>
