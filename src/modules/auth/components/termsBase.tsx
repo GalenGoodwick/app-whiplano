@@ -7,9 +7,9 @@ export default function Terms() {
         <div className="container mx-auto flex flex-col gap-[2rem] px-6">
           <div className="flex flex-col">
             <p className="text-lg leading-relaxed text-gray-700 text-justify">
-              Welcome to Whiplano LLC ("Whiplano," "Company," "we," "us," or "our"). These Terms and
-              Conditions ("Terms") govern your access to and use of our website, services, platform, and
-              products, including Tradable Rights Seeds ("TRS") and other digital content provided by
+              Welcome to Whiplano LLC (&quot;Whiplano,&quot; &quot;Company,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;). These Terms and
+              Conditions (&quot;Terms&quot;) govern your access to and use of our website, services, platform, and
+              products, including Tradable Rights Seeds (&quot;TRS&quot;) and other digital content provided by
               Whiplano. By accessing or using our platform, you agree to be bound by these Terms.
               <br />
             </p>
@@ -33,16 +33,16 @@ export default function Terms() {
 
               <li className="font-bold flex items-start gap-2 text-left">2. Definitions</li>
               <ul className="list-disc list-inside pl-[2rem] text-gray-700 text-justify">
-                <li><b>User:</b> Any individual or entity accessing or using Whiplano’s services.</li>
+                <li><b>User:</b> Any individual or entity accessing or using Whiplano&apos;s services.</li>
                 <li><b>TRS:</b> Tradable Rights Seeds, digital assets issued by Whiplano that grant specified rights to creative works.</li>
-                <li><b>Platform:</b> Whiplano’s website, applications, and services.</li>
+                <li><b>Platform:</b> Whiplano&apos;s website, applications, and services.</li>
                 <br />
               </ul>
 
               <li className="font-bold flex items-start gap-2 text-left">3. Eligibility</li>
               <p className="text-gray-700 text-justify pl-5">
                 To use Whiplano, you must be at least 18 years old or have the legal capacity to enter into these
-                Terms under your jurisdiction’s laws. You represent that the information you provide is accurate
+                Terms under your jurisdiction&apos;s laws. You represent that the information you provide is accurate
                 and complete.
                 <br /><br />
               </p>
@@ -96,39 +96,6 @@ export default function Terms() {
                 <li>(b) Users may close their accounts, but Whiplano reserves the right to retain transaction records for legal compliance.</li>
                 <br />
               </ul>
-
-              <li className="font-bold flex items-start gap-2 text-left">10. Disclaimers and Limitations of Liability</li>
-              <ul className=" list-outside space-y-2 text-gray-700 text-justify pl-5 pl-3">
-                <li>(a) Whiplano provides its platform "as is" and disclaims all warranties of merchantability, fitness
-                  for a particular purpose, and non-infringement.</li>
-                <li>(b) Whiplano is not responsible for any financial losses, legal disputes, or platform downtime.</li>
-                <li>(c) In no event shall Whiplano’s liability exceed the amount paid by the user to Whiplano within
-                  the past six months.</li>
-                <br />
-              </ul>
-
-              <li className="font-bold flex items-start gap-2 text-left">11. Governing Law and Dispute Resolution</li>
-              <ul className=" list-outside space-y-2 text-gray-700 text-justify pl-5 pl-3">
-                <li>(a) These Terms shall be governed by the laws of Washington.</li>
-                <li>(b) Any disputes shall be resolved through binding arbitration in King County, Washington, with each party bearing its own costs.</li>
-                <br />
-              </ul>
-
-              <li className="font-bold flex items-start gap-2 text-left">12. Amendments and Updates</li>
-              <p className="text-gray-700 text-justify ">
-                Whiplano reserves the right to modify these Terms at any time. Users will be notified of
-                significant changes, and continued use of the platform constitutes acceptance of the revised Terms.
-                <br /><br />
-              </p>
-
-              <li className="font-bold flex items-start gap-2 text-left">13. Contact Information</li>
-              <p className="text-gray-700 text-justify ">
-                For questions or concerns regarding these Terms, contact us at:
-                <br />Email: info@whiplano.com
-                <br />Address: 1524 Blaine Street, Port Townsend, WA, 98368
-              </p>
-              <br /><br />
-              By using Whiplano's technology, you acknowledge and agree to these Terms and Conditions.
             </ul>
           </div>
         </div>
