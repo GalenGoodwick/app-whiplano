@@ -1,3 +1,4 @@
+"use client";
 import OnboardingHeader from "@/modules/onboarding/components/header";
 
 export default function OnboardingLayout({

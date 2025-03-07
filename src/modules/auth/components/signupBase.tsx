@@ -16,8 +16,6 @@ export default function SignupComponent() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agree, setAgree] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -28,7 +26,7 @@ export default function SignupComponent() {
     e.preventDefault();
 
     // Validate form fields
-    if (!firstName || !lastName || !email || !password || !confirmPassword) {
+    if (!email || !password || !confirmPassword) {
       toast({
         variant: "destructive",
         title: "Signup Failed",
@@ -60,7 +58,6 @@ export default function SignupComponent() {
 
     try {
       const payload: ISignupPayload = {
-        username: firstName + lastName,
         email,
         password,
       };
@@ -72,13 +69,12 @@ export default function SignupComponent() {
         title: "Signup Successful",
         description: "Your account has been created successfully.",
       });
-    } catch (err) {
+    } catch (err: any) {
       toast({
         variant: "destructive",
         title: "Signup Failed",
-        description: "An error occurred during signup.",
+        description: err?.response?.data?.detail,
       });
-      console.error("Signup error:", err);
     } finally {
       setLoading(false);
     }
@@ -110,36 +106,6 @@ export default function SignupComponent() {
           </p>
 
           <form className="space-y-4" onSubmit={handleSignup}>
-            {/* Name Fields */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  First Name
-                </label>
-                <Input
-                  type="text"
-                  placeholder="John"
-                  className="mt-1"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Last Name
-                </label>
-                <Input
-                  type="text"
-                  placeholder="Doe"
-                  className="mt-1"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-
             {/* Email & Phone Fields */}
             <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
               <div>
@@ -271,7 +237,7 @@ export default function SignupComponent() {
 
             <p className="text-center text-sm text-gray-600">
               Already have an account?{" "}
-              <Link href="#" className="text-pink-500 hover:underline">
+              <Link href="/login" className="text-pink-500 hover:underline">
                 Login
               </Link>
             </p>
