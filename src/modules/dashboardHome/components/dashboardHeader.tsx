@@ -7,28 +7,41 @@ import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
-  DropdownMenuItem
+  DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import { useRightSidebar } from "@/context/RightSidebarContext";
 
 export default function DashboardHeader() {
+
+  const { openSidebar } = useRightSidebar();
+
   return (
     <header className="flex justify-between items-center bg-white border-b border-gray-100 px-4 sm:px-6 py-4">
       {/* Dashboard Title - Adjust Size for Mobile */}
       <h4 className="text-lg sm:text-xl md:text-2xl font-semibold mt-4 sm:mt-0 ml-16  sm:ml-0">
-  Dashboard
-</h4>
-
+        Dashboard
+      </h4>
 
       <div className="flex items-center gap-3 sm:gap-4">
         {/* Notification Icon - Hide on Small Screens */}
-        <Bell className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600 cursor-pointer hidden sm:block" />
+        <Bell
+          className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600 cursor-pointer hidden sm:block"
+          onClick={() =>
+            openSidebar(
+              <div>
+                <h2 className="text-xl font-bold">Notifications</h2>
+                <p>You have new notifications!</p>
+              </div>
+            )
+          }
+        />
 
         {/* User Profile Dropdown */}
         <DropdownMenu>
           <DropdownMenuTrigger>
             <div className="flex items-center gap-2 cursor-pointer border border-gray-200 bg-white rounded-md px-2 py-1">
               {/* Avatar - Adjust size for smaller screens */}
-              <Avatar src="/avatar.svg" alt="User Avatar"  />
+              <Avatar src="/avatar.svg" alt="User Avatar" />
 
               {/* Hide text on small screens */}
               <span className="text-gray-800 font-medium hidden sm:block">

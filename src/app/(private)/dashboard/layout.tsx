@@ -1,9 +1,9 @@
-"use client"; // Ensures this component runs on the client side
+"use client";
 
 import { useState } from "react";
 import DashboardHeader from "@/modules/dashboardHome/components/dashboardHeader";
 import Sidebar from "@/modules/dashboardHome/components/sidebar";
-import { Menu } from "lucide-react";
+import { RightSidebarProvider } from "@/context/RightSidebarContext";
 
 export default function OnboardingLayout({
   children,
@@ -14,10 +14,7 @@ export default function OnboardingLayout({
 
   return (
     <div className="relative flex min-h-screen bg-white">
-      
-    
-        <Sidebar />
-      
+      <Sidebar />
 
       {isSidebarOpen && (
         <div
@@ -30,11 +27,13 @@ export default function OnboardingLayout({
 
       {/* ✅ Main Content */}
       <div className="flex flex-col flex-grow ">
-        <DashboardHeader />
+        <RightSidebarProvider>
+          <DashboardHeader />
 
-        <main className="flex-grow flex justify-left relative z-10 p-4 sm:p-6 md:p-8">
-          {children}
-        </main>
+          <main className="flex-grow flex justify-left relative z-10 p-4 sm:p-6 md:p-8">
+            {children}
+          </main>
+        </RightSidebarProvider>
       </div>
     </div>
   );
