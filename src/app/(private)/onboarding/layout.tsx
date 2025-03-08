@@ -10,6 +10,7 @@ export default function OnboardingLayout({
       <OnboardingHeader />
 
       <main className="flex-grow flex justify-center relative z-10">
+        
         {children}
       </main>
     </div>
