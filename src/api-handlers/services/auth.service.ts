@@ -3,25 +3,38 @@ import { ILoginVM, ISignupPayload } from "../modal/IatuhVM";
 
 const login = async (vm: ILoginVM) => {
   try {
-    const response = await APIAxios.post('/login', vm);
-    return response.data;
+    // const response = await APIAxios.post("/login", vm);
+    // return response.data;
+
+    return {
+      token: "ajkndanj ansixnan janiscniansa", 
+      info: {
+        email: vm.email,
+        is_verified: true,
+        has_onboarded: false,
+      },
+    };
   } catch (err) {
     throw err;
   }
 };
 
 const signup = async (vm: ISignupPayload) => {
-    try {
-      const response = await APIAxios.post('/signup', vm);
-      return response.data;
-    } catch (err) {
-      throw err;
-    }
-  };
+  try {
+    const response = await APIAxios.post("/signup", vm, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
 
 const authService = {
-    login,
-    signup
-}
+  login,
+  signup,
+};
 
-export default authService
+export default authService;
