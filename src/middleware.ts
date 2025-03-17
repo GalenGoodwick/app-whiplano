@@ -28,7 +28,6 @@ export function middleware(request: NextRequest) {
   if (token && hasOnboarded && pathname === "/onboarding") {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
-
   return NextResponse.next();
 }
 
