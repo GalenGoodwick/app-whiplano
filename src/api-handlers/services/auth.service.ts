@@ -3,17 +3,9 @@ import { ILoginVM, ISignupPayload } from "../modal/IatuhVM";
 
 const login = async (vm: ILoginVM) => {
   try {
-    // const response = await APIAxios.post("/login", vm);
-    // return response.data;
+    const response = await APIAxios.post("/login", vm);
+    return response.data;
 
-    return {
-      token: "ajkndanj ansixnan janiscniansa", 
-      info: {
-        email: vm.email,
-        is_verified: true,
-        has_onboarded: false,
-      },
-    };
   } catch (err) {
     throw err;
   }

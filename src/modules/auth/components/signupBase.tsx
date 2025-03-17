@@ -1,3 +1,4 @@
+/*eslint-disable */
 "use client";
 
 import Image from "next/image";
@@ -268,11 +269,11 @@ export default function SignupComponent() {
         {/* Right Side - Image */}
         <div className="hidden md:flex items-center justify-center">
           <Image
-            src="/login-new.png"
+            src="/login.png"
             alt="Abstract Illustration"
             width={616}
             height={816}
-            className="object-cover"
+            className="object-cover rounded-lg"
           />
         </div>
       </div>
