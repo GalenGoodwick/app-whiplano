@@ -8,7 +8,7 @@ export default function HotTRS() {
       stock: "5 / 100 left",
       category: "MISC",
       trend: "1.71%",
-      image: "./book.svg" // Replace with actual image path
+      image: "./book.svg" 
     },
     {
       name: "Light on Bone",
@@ -25,7 +25,15 @@ export default function HotTRS() {
       category: "MISC",
       trend: "1.71%",
       image: "./book.svg"
-    }
+    },
+    {
+      name: "Light on Bone",
+      price: "$122",
+      stock: "5 / 100 left",
+      category: "MISC",
+      trend: "1.71%",
+      image: "./book.svg"
+    },
   ];
 
   return (

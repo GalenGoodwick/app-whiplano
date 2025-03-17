@@ -2,7 +2,7 @@ import React from "react";
 
 const WelcomeCard: React.FC = () => {
   return (
-    <div className="flex items-center justify-between mt-8 p-6 bg-gradient-to-r from-[#FFEDF1] to-[#F5F6FA] rounded-xl shadow-md w-full lg:h-[180px] lg:w-[805px] mx-auto">
+    <div className="flex items-center justify-between mt-8 p-6 bg-gradient-to-r from-[#FFEDF1] to-[#F5F6FA] rounded-xl shadow-md w-full lg:h-[180px]  mx-auto">
       {/* Left Content */}
       <div>
         <h2 className="text-2xl  text-black">Yay, you made it Adisko!</h2>

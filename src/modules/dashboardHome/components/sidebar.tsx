@@ -23,7 +23,7 @@ export default function Sidebar() {
           ${isOpen ? "translate-x-0" : "-translate-x-full"} 
           md:translate-x-0 md:relative md:flex md:flex-col md:h-screen`}
       >
-        <div className="p-4 flex items-center justify-between">
+        <div className=" p-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <img
               src="/whiplanologo.png"

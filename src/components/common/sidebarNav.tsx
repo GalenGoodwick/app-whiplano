@@ -2,7 +2,7 @@ import React from "react";
 
 const SidebarNav: React.FC = () => {
   return (
-    <nav className="flex-1 p-4 space-y-8">
+    <nav className="flex-1 p-4 space-y-8 ">
       <a
         href="#"
         className="flex items-center p-2 rounded-lg bg-[#FE4773] bg-opacity-10 text-pink-600 font-medium border border-[#FFC6D4]"
