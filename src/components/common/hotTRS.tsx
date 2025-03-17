@@ -29,7 +29,7 @@ export default function HotTRS() {
     {
       name: "Light on Bone",
       price: "$122",
-      stock: "5 / 100 left",
+      stock: "5 / 200 left",
       category: "MISC",
       trend: "1.71%",
       image: "./book.svg"
