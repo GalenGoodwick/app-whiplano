@@ -1,4 +1,4 @@
-import { Edit, X, Twitter } from "lucide-react";
+import { Edit } from "lucide-react";
 import { Avatar } from "@/components/common/avatar";
 import { Button } from "@/components/ui/button";
 

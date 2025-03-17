@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Bell, CheckCircle, User, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const notifications = [
@@ -44,7 +43,7 @@ const notifications = [
 ];
 
 export default function NotificationPanel() {
-  const [notificationsList, setNotificationsList] = useState(notifications);
+  const [notificationsList] = useState(notifications);
 
   return (
     <div className="w-109 ">
