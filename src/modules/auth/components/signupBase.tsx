@@ -98,7 +98,7 @@ export default function SignupComponent() {
       <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-10 overflow-hidden">
         {/* Left Side - Signup Form */}
         <div className="flex flex-col justify-center p-8">
-          <h2 className="text-3xl text-[#313131] font-semibold mb-2">
+          <h2 className="text-3xl text-[#313131] font-semibold mb-2 mt-5">
             Sign up
           </h2>
           <p className="text-gray-500 text-sm mb-6 mt-4">
@@ -215,11 +215,11 @@ export default function SignupComponent() {
               />
               <label htmlFor="agree" className="text-gray-600">
                 I agree to all the{" "}
-                <Link href="#" className="text-blue-500 hover:underline">
+                <Link href="/terms" className="text-blue-500 hover:underline">
                   Terms
                 </Link>{" "}
                 and
-                <Link href="#" className="text-pink-500 hover:underline">
+                <Link href="/privacy_policies" className="text-pink-500 hover:underline">
                   {" "}
                   Privacy Policies
                 </Link>

@@ -122,9 +122,8 @@ export default function Login() {
                   Remember me
                 </label>
               </div>
-              <Link href="#" className="text-pink-500 hover:underline">
-                Forgot Password?
-              </Link>
+
+              <Link href="/forgot_password" className="text-pink-500 hover:underline">Forgot Password?</Link>
             </div>
 
             <Button
