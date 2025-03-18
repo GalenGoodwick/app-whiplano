@@ -1,3 +1,4 @@
+"use client";
 import OnboardingHeader from "@/modules/onboarding/components/header";
 
 export default function OnboardingLayout({
@@ -10,6 +11,7 @@ export default function OnboardingLayout({
       <OnboardingHeader />
 
       <main className="flex-grow flex justify-center relative z-10">
+        
         {children}
       </main>
     </div>
