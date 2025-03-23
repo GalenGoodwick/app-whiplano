@@ -13,6 +13,7 @@ import {
 import { useRightSidebar } from "@/context/RightSidebarContext";
 import NotificationBar from "@/components/common/notificationBar";
 import PersonalInformation from "@/components/common/personalInfo";
+import ProfileSettings from "@/components/common/settings";
 
 export default function DashboardHeader() {
   const { openSidebar } = useRightSidebar();
@@ -60,7 +61,6 @@ export default function DashboardHeader() {
 
             <DropdownMenuSeparator />
 
-            {/* Menu Items */}
             <DropdownMenuItem className="flex items-center gap-3 py-3 mb-2 text-gray-700 bg-[#F5F6FA]"           onClick={() => openSidebar(<PersonalInformation />)}
             >
               <User size={16} /> Personal Information
@@ -68,7 +68,7 @@ export default function DashboardHeader() {
               
 
             </DropdownMenuItem>
-            <DropdownMenuItem className="flex items-center gap-3 py-3 mb-2 text-gray-700 bg-[#F5F6FA]">
+            <DropdownMenuItem className="flex items-center gap-3 py-3 mb-2 text-gray-700 bg-[#F5F6FA]" onClick={() => openSidebar(<ProfileSettings />)}>
               <Settings size={16} /> Settings
               <span className="ml-auto"><ChevronRight size={14} /></span>
 

@@ -14,7 +14,7 @@ const WelcomeCard: React.FC = () => {
         </button>
       </div>
 
-      {/* Right Image */}
+      
       <div className="flex-shrink-0">
         <img src="/chilli.png" alt="Chili Pepper" className="w-60 h-60" />
       </div>
