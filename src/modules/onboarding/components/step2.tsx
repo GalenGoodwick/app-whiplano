@@ -2,12 +2,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
-import { useState } from "react";
+import { OnboardingStepProps } from "./step1";
 
-const OnboardingStep2 = () => {
-  const [bio, setBio] = useState("");
-  const [twitter, setTwitter] = useState("");
-  const [telegram, setTelegram] = useState("");
+const OnboardingStep2 = ({ payload, setPayload }: OnboardingStepProps) => {
 
   return (
     <div className="max-w-md w-full space-y-6 text-left mt-3">
@@ -20,13 +17,13 @@ const OnboardingStep2 = () => {
           <Textarea
             id="bio"
             placeholder="What should people know about you"
-            value={bio}
-            onChange={(e) => setBio(e.target.value)}
+            value={payload.bio || ""}
+            onChange={(e) => setPayload({ ...payload, bio: e.target.value })}
             maxLength={200}
             className="resize-none w-full h-24 p-3 border rounded-md focus:ring-2 focus:ring-gray-300"
           />
           <span className="absolute bottom-2 right-3 text-xs text-gray-400">
-            {bio.length}/200
+          {(payload.bio?.length || 0)}/200
           </span>
         </div>
       </div>
@@ -49,8 +46,8 @@ const OnboardingStep2 = () => {
                 type="text"
                 placeholder="e.g @johndoe"
                 className="border-none bg-transparent focus:ring-0 flex-1 ml-2"
-                value={twitter}
-                onChange={(e) => setTwitter(e.target.value)}
+                value={payload.twitter || ""}
+                onChange={(e) => setPayload({ ...payload, twitter: e.target.value })}
               />
             </div>
           </div>
@@ -67,8 +64,8 @@ const OnboardingStep2 = () => {
                 type="text"
                 placeholder="e.g @john.doe"
                 className="border-none bg-transparent focus:ring-0 flex-1 ml-2"
-                value={telegram}
-                onChange={(e) => setTelegram(e.target.value)}
+                value={payload.telegram || ""}
+                onChange={(e) => setPayload({ ...payload, telegram: e.target.value })}
               />
             </div>
           </div>

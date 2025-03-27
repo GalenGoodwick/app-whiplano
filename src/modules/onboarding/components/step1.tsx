@@ -1,29 +1,29 @@
+import { IOnboardingPayload } from "@/api-handlers/modal/IatuhVM";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { useState, useRef } from "react";
 
-const OnboardingStep1 = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [username, setUsername] = useState("");
-  const [profileImage, setProfileImage] = useState<string | null>(null);
+export interface OnboardingStepProps {
+  payload: IOnboardingPayload;
+  setPayload: React.Dispatch<React.SetStateAction<IOnboardingPayload>>;
+}
 
+const OnboardingStep1 = ({ payload, setPayload }: OnboardingStepProps) => {
   // Reference for file input
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   // Handle Image Upload
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
-      const file = URL.createObjectURL(event.target.files[0]);
-      setProfileImage(file);
+      setPayload({ ...payload, profile_pic: event.target.files[0] });
     }
   };
 
   // Handle Image Removal
   const handleRemoveImage = () => {
-    setProfileImage(null);
+    setPayload({ ...payload, profile_pic: null });
   };
 
   // Trigger File Input Click
@@ -38,7 +38,7 @@ const OnboardingStep1 = () => {
         {/* Profile Image Clickable */}
         <div className="relative w-16 h-16 cursor-pointer" onClick={handleFileInputClick}>
           <Image
-            src={profileImage || "/avator.png"}
+            src={payload.profile_pic ? URL.createObjectURL(payload.profile_pic) : "/avator.png"}
             alt="Profile"
             width={64}
             height={64}
@@ -48,7 +48,7 @@ const OnboardingStep1 = () => {
 
         {/* Image Upload/Remove/Change Buttons */}
         <div className="flex space-x-2 ml-4">
-          {profileImage ? (
+        {payload.profile_pic ? (
             <>
               <Button
                 variant="outline"
@@ -99,8 +99,8 @@ const OnboardingStep1 = () => {
               type="text"
               placeholder="e.g John"
               className="mt-1 w-full"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={payload.first_name}
+              onChange={(e) => setPayload({ ...payload, first_name: e.target.value })}
             />
           </div>
           <div>
@@ -112,8 +112,8 @@ const OnboardingStep1 = () => {
               type="text"
               placeholder="e.g Doe"
               className="mt-1 w-full"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              value={payload.last_name}
+              onChange={(e) => setPayload({ ...payload, last_name: e.target.value })}
             />
           </div>
         </div>
@@ -127,8 +127,8 @@ const OnboardingStep1 = () => {
             type="text"
             placeholder="e.g adsk123"
             className="mt-1 w-full"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={payload.username}
+            onChange={(e) => setPayload({ ...payload, username: e.target.value })}
           />
         </div>
       </div>

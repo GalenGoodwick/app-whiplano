@@ -1,5 +1,5 @@
 import APIAxios from "../ApiAxios";
-import { ILoginVM, ISignupPayload } from "../modal/IatuhVM";
+import { ILoginVM, ISignupPayload, IOnboardingPayload } from "../modal/IatuhVM";
 
 const login = async (vm: ILoginVM) => {
   try {
@@ -24,9 +24,23 @@ const signup = async (vm: ISignupPayload) => {
   }
 };
 
+const onboarding = async (formData: any) => {
+  try {
+    const response = await APIAxios.post("/user/onboard", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const authService = {
   login,
   signup,
+  onboarding
 };
 
 export default authService;

@@ -29,17 +29,17 @@ export default function Login() {
     try {
       const response = await authService.login({ email, password });
       console.log("🚀 ~ handleLogin ~ response:", response);
-      if (!response.info.is_verified) {
-        toast({
-          variant: "destructive",
-          title: "Not Verified",
-          description: "Please check your email for verification link",
-        });
-        return;
-      }
+      // if (!response.info.is_verified) {
+      //   toast({
+      //     variant: "destructive",
+      //     title: "Not Verified",
+      //     description: "Please check your email for verification link",
+      //   });
+      //   return;
+      // }
       response.info.has_onboarded ? router.push("/dashboard") : router.push("/onboarding");
 
-      document.cookie = `authToken=${response.token}; path=/; Secure`;
+      document.cookie = `authToken=${response.access_token}; path=/; Secure`;
       document.cookie = `hasOnboarded=${response.info.has_onboarded}; path=/; Secure`;
 
     } catch (err) {
