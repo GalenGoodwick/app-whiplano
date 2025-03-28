@@ -1,6 +1,12 @@
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const ForgotPasswordSuccess = () => {
+  const router = useRouter();
+
+  const handleBackToLogin = () => {
+    router.push("/login");
+  };
   return (
     <>
       {/* Form Heading */}
@@ -10,7 +16,7 @@ const ForgotPasswordSuccess = () => {
       </p>
 
       {/* Submit Button */}
-      <Button className="w-full mt-4 bg-deathPink hover:bg-pink-600 text-white">
+      <Button className="w-full mt-4 bg-deathPink hover:bg-pink-600 text-white" onClick={handleBackToLogin}>
         continue to sign in
       </Button>
     </>

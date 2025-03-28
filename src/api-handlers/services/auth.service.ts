@@ -37,10 +37,30 @@ const onboarding = async (formData: any) => {
   }
 };
 
+const forgotPassword = async (email: string) => {
+  try {
+    const response = await APIAxios.get(`/forgot_password?email=${encodeURIComponent(email)}`);
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const resetPassword = async (token: string, password: string)=> {
+  try {
+    const response = await APIAxios.get(`/reset_password?token=${encodeURIComponent(token)}&password=${encodeURIComponent(password)}`);
+    return response;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const authService = {
   login,
   signup,
-  onboarding
+  onboarding,
+  forgotPassword,
+  resetPassword
 };
 
 export default authService;
