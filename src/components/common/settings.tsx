@@ -1,43 +1,85 @@
 import React, { useState } from "react";
-import { CircleX, KeyRound, ChevronRight, AtSign } from "lucide-react";
+import { CircleX, KeyRound, ChevronRight, AtSign, ArrowLeft } from "lucide-react";
 import { useRightSidebar } from "@/context/RightSidebarContext";
+import ConfirmEmail from "./settingsComponents/confirmEmail";
+import CheckEmail from "./settingsComponents/checkEmail";
+import NewPasswordForm from "./settingsComponents/newPasswordForm";
+import ConfirmCurrentPassword from "./settingsComponents/confirmCurrentPassword";
+import ChangeEmailForm from "./settingsComponents/newEmailForm";
 
 export default function ProfileSettings() {
   const { closeSidebar } = useRightSidebar();
   const [heading, setHeading] = useState("Settings");
-  const [showChangeOptions, setShowChangeOptions]= useState(true);
+  const [showChangeOptions, setShowChangeOptions] = useState(true);
   const [isPasswordChanged, setIsPasswordChanged] = useState(false);
+  const [isEmailChanged, setIsEmailChanged] = useState(false);
+  const [submittedEmail, setSubmittedEmail] = useState("");
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [isCurrentPasswordVerified, setIsCurrentPasswordVerified] = useState(false);
 
   const handleChangePasswordClick = () => {
     setHeading("Change Password");
-    setIsPasswordChanged(true);
     setShowChangeOptions(false);
+    setIsPasswordChanged(true);
   };
 
   const handleChangeEmailClick = () => {
     setHeading("Change Email");
     setShowChangeOptions(false);
-    setIsPasswordChanged(false);
+    setIsEmailChanged(true);
   };
 
-  const handleSendLink=()=>{
-    
-  }
+  const handleSendLink = (email: string) => {
+    if (!email) return;
+    setSubmittedEmail(email);
+  };
+
+  const handleContinue = () => {
+    setIsEmailVerified(true);
+  };
+
+  const handleBack = () => {
+    if (isEmailVerified) {
+      setIsEmailVerified(false);
+    } else if (submittedEmail) {
+      setSubmittedEmail("");
+    } else if (isCurrentPasswordVerified) {
+      setIsCurrentPasswordVerified(false);
+    } else {
+      // Back to initial selection screen
+      setShowChangeOptions(true);
+      setIsPasswordChanged(false);
+      setIsEmailChanged(false);
+      setSubmittedEmail("");
+      setIsEmailVerified(false);
+      setIsCurrentPasswordVerified(false);
+      setHeading("Settings");
+    }
+  };
+
+  const resetAllStates = () => {
+    setIsPasswordChanged(false);
+    setIsEmailChanged(false);
+    setSubmittedEmail("");
+    setIsEmailVerified(false);
+    setIsCurrentPasswordVerified(false);
+    setShowChangeOptions(true);
+    setHeading("Settings");
+  };
 
   return (
     <div className="bg-white w-full max-w-[500px] md:max-w-[600px]">
-      <div className="flex justify-between items-center border-b pb-4 mb-4">
-        <h2 className="text-xl font-semibold">
-          {heading}
-        </h2>
-        <CircleX
-          size={20}
-          color="#595959"
-          strokeWidth={2}
-          onClick={closeSidebar}
-        />
+      <div className="flex items-center justify-between border-b pb-4 mb-4">
+        <div className="flex items-center gap-2">
+          {!showChangeOptions && (
+            <button onClick={handleBack}>
+              <ArrowLeft size={20} strokeWidth={2} className="text-gray-600" />
+            </button>
+          )}
+          <h2 className="text-xl font-semibold">{heading}</h2>
+        </div>
+        <CircleX size={20} color="#595959" strokeWidth={2} onClick={closeSidebar} />
       </div>
-      
 
       {showChangeOptions ? (
         <>
@@ -49,11 +91,9 @@ export default function ProfileSettings() {
               <KeyRound size={20} color="#595959" strokeWidth={2} />
               <p>Change Password</p>
             </div>
-
-            <div className="flex items-center">
-              <ChevronRight size={20} color="#595959" strokeWidth={2} />
-            </div>
+            <ChevronRight size={20} color="#595959" strokeWidth={2} />
           </div>
+
           <div
             className="bg-[#F5F6FA] flex justify-between items-center w-full p-2 rounded-xl mt-2 cursor-pointer hover:bg-[#e6e9f2] transition duration-300 ease-in-out"
             onClick={handleChangeEmailClick}
@@ -62,33 +102,45 @@ export default function ProfileSettings() {
               <AtSign size={20} color="#595959" strokeWidth={2} />
               <p>Change Email</p>
             </div>
-
-            <div className="flex items-center">
-              <ChevronRight size={20} color="#595959" strokeWidth={2} />
-            </div>
+            <ChevronRight size={20} color="#595959" strokeWidth={2} />
           </div>
         </>
       ) : (
         <div className="mt-4 text-left">
           {isPasswordChanged ? (
-            <div className="max-w-md mx-auto mt-6 p-2">
-            <p className="text-gray-600">
-              Please provide the email you used in signing up to reset your password
-            </p>
-            <label className="block mt-4 text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <input
-              type="email"
-              placeholder="e.g johndoe@gmail.com"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            />
-            <button className="mt-4 bg-pink-200 hover:bg-pink-600 text-white w-full py-2 rounded">Send link</button>
-          </div>
-          
-          ) : (
-            <p>change email</p> 
-          )}
+            submittedEmail ? (
+              isEmailVerified ? (
+              <NewPasswordForm onFinish={resetAllStates} />
+              ) : (
+                <CheckEmail
+                  submittedEmail={submittedEmail}
+                  onChangeEmail={handleChangeEmailClick}
+                  onContinue={handleContinue}
+                />
+              )
+            ) : (
+              <ConfirmEmail handleSendLink={handleSendLink} />
+            )
+          ) : isEmailChanged ? (
+            isCurrentPasswordVerified ? (
+              isEmailVerified ? (
+                <ChangeEmailForm onFinish={resetAllStates}/>
+              ) : (
+                <CheckEmail
+                  submittedEmail={submittedEmail}
+                  onChangeEmail={handleChangeEmailClick}
+                  onContinue={handleContinue}
+                />
+              )
+            ) : (
+              <ConfirmCurrentPassword
+                onConfirm={(password) => {
+                  console.log("Password entered for email change:", password);
+                  setIsCurrentPasswordVerified(true);
+                }}
+              />
+            )
+          ) : null}
         </div>
       )}
     </div>
