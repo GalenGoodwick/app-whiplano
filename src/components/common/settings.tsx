@@ -46,7 +46,6 @@ export default function ProfileSettings() {
     } else if (isCurrentPasswordVerified) {
       setIsCurrentPasswordVerified(false);
     } else {
-      // Back to initial selection screen
       setShowChangeOptions(true);
       setIsPasswordChanged(false);
       setIsEmailChanged(false);

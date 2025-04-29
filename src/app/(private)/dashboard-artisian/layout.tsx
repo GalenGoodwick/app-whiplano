@@ -25,9 +25,13 @@ export default function OnboardingLayout({
         ></div>
       )}
 
+      {/* ✅ Main Content */}
       <div className="flex flex-col flex-grow ">
         <RightSidebarProvider>
-          <DashboardHeader />
+          {/* Pass the showCreateTRSButton prop */}
+          <DashboardHeader showCreateTRSButton={true} />
+          
+
 
           <main className="flex-grow flex justify-left relative z-10 p-4 sm:p-6 md:p-8">
             {children}

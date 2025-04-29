@@ -1,4 +1,6 @@
 import React from "react";
+import Image from 'next/image';
+
 
 const WelcomeCard: React.FC = () => {
   return (
@@ -16,7 +18,7 @@ const WelcomeCard: React.FC = () => {
 
       
       <div className="flex-shrink-0">
-        <img src="/chilli.png" alt="Chili Pepper" className="w-60 h-60" />
+        <Image src="/chilli.png" alt="Chilli Pepper" width={300} height={300}  className="w-60 h-60" />
       </div>
     </div>
   );
