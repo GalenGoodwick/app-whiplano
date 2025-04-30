@@ -14,12 +14,12 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // if (
-  //   !token &&
-  //   (pathname.startsWith("/dashboard") || pathname.startsWith("/onboarding"))
-  // ) {
-  //   return NextResponse.redirect(new URL("/login", request.url));
-  // }
+  if (
+    !token &&
+    (pathname.startsWith("/dashboard") || pathname.startsWith("/onboarding"))
+  ) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
 
   if (token && !hasOnboarded && pathname !== "/onboarding") {
     return NextResponse.redirect(new URL("/onboarding", request.url));

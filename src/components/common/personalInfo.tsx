@@ -37,7 +37,7 @@ export default function PersonalInformation() {
 
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <Avatar src="/avatar.svg"   width={40} height={40}  alt="User Avatar" />
+          <Avatar src="/avatar.svg"  alt="User Avatar" />
           <div>
             <p className="text-lg font-semibold">Adisko</p>
             <p className="text-gray-500 text-sm">Creator</p>
