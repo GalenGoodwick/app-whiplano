@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Edit } from "lucide-react";
 import { Avatar } from "@/components/common/avatar";
 import { Button } from "@/components/ui/button";
+import Image from 'next/image';
+
 
 export default function PersonalInformation() {
   const [isEditing, setIsEditing] = useState(false);
@@ -35,14 +37,14 @@ export default function PersonalInformation() {
 
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <Avatar src="/avatar.svg" alt="User Avatar" />
+          <Avatar src="/avatar.svg"  alt="User Avatar" />
           <div>
             <p className="text-lg font-semibold">Adisko</p>
             <p className="text-gray-500 text-sm">Creator</p>
           </div>
         </div>
         <Button className="bg-gradient-to-r from-[#FE4773] to-[#6E114C] text-white flex items-center gap-2">
-          <img src="/crown.svg" alt="crown" className="w-5 h-5" />
+          <Image src="/crown.svg"   width={20} height={20} alt="crown" className="w-5 h-5" />
           <span>Become a creator</span>
         </Button>
       </div>
@@ -92,7 +94,7 @@ export default function PersonalInformation() {
         <p className="text-gray-500 text-sm">Social links</p>
         <div className="mt-2 space-y-3">
           <div className="flex items-center gap-3 bg-gray-100 rounded-md p-3">
-            <img src="/twitter.svg" alt="Twitter" className="w-5 h-5" />
+            <Image src="/twitter.svg" width={20} height={20} alt="Twitter" className="w-5 h-5" />
             {isEditing
               ? <input
                   type="text"
@@ -106,7 +108,7 @@ export default function PersonalInformation() {
                 </a>}
           </div>
           <div className="flex items-center gap-3 bg-gray-100 rounded-md p-3">
-            <img src="/telegram.svg" alt="Telegram" className="w-5 h-5" />
+            <Image src="/telegram.svg" width={20} height={20} alt="Telegram" className="w-5 h-5" />
             {isEditing
               ? <input
                   type="text"
@@ -132,8 +134,10 @@ export default function PersonalInformation() {
         <div className="mt-6">
           <p className="text-gray-500 text-sm">Payment method</p>
           <div className="bg-gray-100 rounded-md p-4 mt-2">
-            <img
-              src="./paypal.png"
+            <Image
+              src="/paypal.png"
+              width={95}
+              height={95}
               alt="PayPal"
               className="w-[95px] h-auto mb-3"
             />

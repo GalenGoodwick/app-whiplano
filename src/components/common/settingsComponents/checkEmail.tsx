@@ -8,7 +8,6 @@ interface CheckEmailProps {
 
 const CheckEmail: React.FC<CheckEmailProps> = ({
   submittedEmail,
-  onChangeEmail,
   onContinue 
 
 }) => {

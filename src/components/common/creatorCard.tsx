@@ -1,10 +1,13 @@
 import React from "react";
+import Image from 'next/image';
+
+
 
 const CreatorCard = () => {
   return (
     <div className="p-3 border-t relative">
       {/* Banner Image */}
-      <img src="/creator.png" alt="Banner" className="w-full rounded-t-lg" />
+      <Image src="/creator.png" width={300} height={200} alt="Banner" className="w-full rounded-t-lg" />
 
       {/* Close Button */}
       <button className="absolute top-4 right-6 w-6 h-6 bg-white rounded-full text-[#386B98] hover:text-gray-500 z-10">
@@ -22,7 +25,7 @@ const CreatorCard = () => {
 
         {/* Button with Crown SVG */}
         <button className="mt-3 w-full bg-gradient-to-r from-[#FE4773] to-[#6E114C] text-white py-2 rounded-lg flex items-center justify-center gap-2">
-          <img src="/crown.svg" alt="crown" className="w-5 h-5" />
+          <Image src="/crown.svg" width={20} height={20} alt="crown" className="w-5 h-5" />
           Become a Creator
         </button>
       </div>

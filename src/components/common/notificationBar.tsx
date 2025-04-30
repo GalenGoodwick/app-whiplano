@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import Image from 'next/image';
+
 
 const notifications = [
   {
@@ -8,7 +10,7 @@ const notifications = [
     message:
       'Congratulations! Your buy order for "Light on Bone" has been executed. See your portfolio.',
     time: "12:21 PM",
-    icon: <img src="/not1.svg" alt="not1" />,
+    icon: <Image src="/not1.svg" width={20} height={20} alt="not1" />,
     actionText: "Go to my asset",
     unread: true
   },
@@ -18,7 +20,7 @@ const notifications = [
     message:
       "Congratulations! You're now a creator and can now create, buy, and activate a TRS right.",
     time: "08:13 AM",
-    icon: <img src="/not2.svg" alt="not1" />,
+    icon: <Image src="/not2.svg" width={20} height={20} alt="not1" />,
     actionText: "Buy create my first TRS",
     unread: true
   },
@@ -28,7 +30,7 @@ const notifications = [
     message:
       "Get the latest insights on market trends. Dive into detailed analyses and stay ahead.",
     time: "Yesterday",
-    icon: <img src="/not3.svg" alt="not1" />,
+    icon: <Image src="/not3.svg" width={20} height={20} alt="not1" />,
     unread: false
   },
   {
@@ -37,7 +39,7 @@ const notifications = [
     message:
       'Congratulations! Your buy order for "Light on Bone" has been executed. See your portfolio.',
     time: "Yesterday",
-    icon: <img src="/not4.svg" alt="not1" />,
+    icon: <Image src="/not4.svg" width={20} height={20} alt="not1" />,
     unread: false
   }
 ];

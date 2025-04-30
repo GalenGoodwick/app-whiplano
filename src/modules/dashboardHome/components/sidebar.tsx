@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import CreatorCard from "@/components/common/creatorCard";
 import SidebarNav from "@/components/common/sidebarNav";
+import Image from 'next/image';
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,8 +26,10 @@ export default function Sidebar() {
       >
         <div className=" p-4 flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <img
+            <Image
               src="/whiplanologo.png"
+              width={32}
+              height={32}
               alt="Whiplano Logo"
               className="w-8 h-8"
             />

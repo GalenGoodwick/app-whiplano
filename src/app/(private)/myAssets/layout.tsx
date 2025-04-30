@@ -6,7 +6,7 @@ import Sidebar from "@/modules/dashboardHome/components/sidebar";
 import { RightSidebarProvider } from "@/context/RightSidebarContext";
 
 export default function OnboardingLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -22,14 +22,16 @@ export default function OnboardingLayout({
           onClick={() => setIsSidebarOpen(false)}
           role="button"
           aria-label="Close sidebar"
-        ></div>
+        />
       )}
 
-      <div className="flex flex-col flex-grow ">
+      {/* Main Content */}
+      <div className="flex flex-col flex-grow w-full "> {/* Add margin-left for sidebar width */}
         <RightSidebarProvider>
-          <DashboardHeader />
+          {/* Pass the showCreateTRSButton prop */}
+          <DashboardHeader showCreateTRSButton={true} />
 
-          <main className="flex-grow flex justify-left relative z-10 p-4 sm:p-6 md:p-8">
+          <main className="flex-grow flex justify-start relative z-10 w-full  ">
             {children}
           </main>
         </RightSidebarProvider>
