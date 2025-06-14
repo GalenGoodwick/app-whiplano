@@ -21,9 +21,10 @@ import {
   DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu";
 import { useRightSidebar } from "@/context/RightSidebarContext";
+import { useSelector } from "react-redux";
 import NotificationBar from "@/components/common/notificationBar";
 import PersonalInformation from "@/components/common/personalInfo";
-import ProfileSettings from "@/components/common/settings";
+import ProfileSettings from "@/components/common/settingsBase";
 import CreateTrs from "@/components/common/dasboardArtisian/createTrs";
 import Image from 'next/image';
 
@@ -32,9 +33,13 @@ interface DashboardHeaderProps {
 }
 
 export default function DashboardHeader({
+  
   showCreateTRSButton
 }: DashboardHeaderProps) {
   const { openSidebar } = useRightSidebar();
+  const user = useSelector((state: any) => state.user); // Get user data from Redux
+
+  
 
   return (
     <header className="flex justify-between items-center bg-white border-b border-gray-100 px-4 sm:px-6 py-4">
@@ -59,12 +64,10 @@ export default function DashboardHeader({
         <DropdownMenu>
           <DropdownMenuTrigger>
             <div className="flex items-center gap-2 cursor-pointer border border-gray-200 bg-white rounded-md px-2 py-1">
-              {/* Avatar - Adjust size for smaller screens */}
               <Avatar src="/avatar.svg" alt="User Avatar" />
 
-              {/* Hide text on small screens */}
               <span className="text-gray-800 font-medium hidden sm:block">
-                Hey, Adisko!
+                Hey,  {user.firstName}!
               </span>
 
               <ChevronDown className="w-4 h-4 text-gray-600 hidden sm:block" />
@@ -78,7 +81,7 @@ export default function DashboardHeader({
             <div className="flex items-center gap-3 mb-4">
               <Avatar src="/avatar.svg" alt="User Avatar" />
               <div>
-                <p className="text-gray-900 font-semibold">Adisko</p>
+                <p className="text-gray-900 font-semibold">{user.firstName}</p>
                 <p className="text-gray-500 text-sm">Investor</p>
               </div>
               <button className="ml-auto bg-gradient-to-r from-[#FE4773] to-[#6E114C] text-white text-sm px-4 py-1.5 rounded-md flex items-center gap-2">

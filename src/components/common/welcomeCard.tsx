@@ -1,13 +1,18 @@
 import React from "react";
 import Image from 'next/image';
+import { useSelector, UseSelector } from "react-redux"; 
 
 
 const WelcomeCard: React.FC = () => {
+
+  const user = useSelector((state: any) => state.user);
+
+
   return (
     <div className="flex items-center justify-between mt-8 p-6 bg-gradient-to-r from-[#FFEDF1] to-[#F5F6FA] rounded-xl shadow-md w-full lg:h-[180px] mx-auto">
       {/* Left Content */}
       <div>
-        <h2 className="text-2xl text-black">Yay, you made it Adisko!</h2>
+        <h2 className="text-2xl text-black">Yay, you made it {user.firstName}</h2>
         <p className="text-[#787878] mt-2 text-[13px]">
           Welcome to WHIPLANO Adisko, where you can trade, buy, and sell the IP right of products and can also be an artisan to activate rights to a TRS.
         </p>

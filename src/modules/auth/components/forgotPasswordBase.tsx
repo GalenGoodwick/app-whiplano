@@ -20,13 +20,12 @@ const ForgotPassword = () => {
   useEffect(() => {
     const token = searchParams.get("resetid");
     
-    // Short timeout to allow for smooth transition
     setTimeout(() => {
       if (token) {
         setResetToken(token);
-        setStep(3); // Go directly to reset password step
+        setStep(3);
       } else {
-        setStep(1); // Default to first step if no token
+        setStep(1); 
       }
       setIsLoading(false);
     }, 100);

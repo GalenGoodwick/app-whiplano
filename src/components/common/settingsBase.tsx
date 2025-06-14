@@ -29,8 +29,8 @@ export default function ProfileSettings() {
     setIsEmailChanged(true);
   };
 
-  const handleSendLink = (email: string) => {
-    if (!email) return;
+  const handleEmailSubmit = (email: string) => {
+    console.log("Email submitted from ConfirmEmail:", email);
     setSubmittedEmail(email);
   };
 
@@ -118,7 +118,7 @@ export default function ProfileSettings() {
                 />
               )
             ) : (
-              <ConfirmEmail handleSendLink={handleSendLink} />
+              <ConfirmEmail onEmailSubmit={handleEmailSubmit} />
             )
           ) : isEmailChanged ? (
             isCurrentPasswordVerified ? (

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Edit } from "lucide-react";
 import { Avatar } from "@/components/common/avatar";
 import { Button } from "@/components/ui/button";
+import { useSelector } from "react-redux";
+
 import Image from 'next/image';
 
 
@@ -25,6 +27,11 @@ export default function PersonalInformation() {
     setIsEditing(false);
   };
 
+
+  const user = useSelector((state: any) => state.user); 
+
+
+
   return (
     <div className="bg-white w-full max-w-[500px] md:max-w-[600px]">
       <div className="flex justify-between items-center border-b pb-4 mb-4">
@@ -39,7 +46,7 @@ export default function PersonalInformation() {
         <div className="flex items-center gap-3">
           <Avatar src="/avatar.svg"  alt="User Avatar" />
           <div>
-            <p className="text-lg font-semibold">Adisko</p>
+            <p className="text-lg font-semibold">{user.firstName}</p>
             <p className="text-gray-500 text-sm">Creator</p>
           </div>
         </div>
@@ -60,7 +67,7 @@ export default function PersonalInformation() {
                 className="text-gray-900 font-sm border border-gray-300 rounded-md p-2 w-full"
               />
             : <p className="text-gray-900 font-sm">
-                {fullName}
+                {user.firstName} {user.lastName}
               </p>}
         </div>
         <div>
@@ -73,7 +80,7 @@ export default function PersonalInformation() {
                 className="text-gray-900 font-sm border border-gray-300 rounded-md p-2 w-full"
               />
             : <p className="text-gray-900 font-sm">
-                {email}
+                {user.email}
               </p>}
         </div>
         <div>
@@ -85,7 +92,7 @@ export default function PersonalInformation() {
                 className="text-gray-900 font-sm border border-gray-300 rounded-md p-2 w-full"
               />
             : <p className="text-gray-900 font-sm">
-                {bio}
+                {user.bio}
               </p>}
         </div>
       </div>
@@ -104,7 +111,7 @@ export default function PersonalInformation() {
                   className="text-gray-900 font-sm w-full"
                 />
               : <a href={socialLinks.twitter} className="text-gray-900 font-sm">
-                  {socialLinks.twitter}
+                  {user.twitter}
                 </a>}
           </div>
           <div className="flex items-center gap-3 bg-gray-100 rounded-md p-3">
@@ -124,7 +131,7 @@ export default function PersonalInformation() {
                   href={socialLinks.telegram}
                   className="text-gray-900 font-sm"
                 >
-                  {socialLinks.telegram}
+                  {user.telegram}
                 </a>}
           </div>
         </div>
