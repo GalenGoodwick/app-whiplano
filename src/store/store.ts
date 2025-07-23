@@ -1,20 +1,21 @@
-// store/store.ts
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import authReducer from "./authSlice";
 import userReducer from "./userSlice";
-import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; 
+import productReducer from "./productSlice";
 
-// Define the persist configuration
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+
 const persistConfig = {
-  key: "root", // Root key for persistence
-  storage, // Storage engine (localStorage in this case)
-  whitelist: ["user"], // Persist only the `user` slice
+  key: "root",
+  storage,
+  whitelist: ["user", "products"], // ✅ Persist these slices
 };
 
 const rootReducer = combineReducers({
-  auth: authReducer,
-  user: userReducer,
+  auth: authReducer,       // Not persisted (good for auth tokens)
+  user: userReducer,       // ✅ Persisted
+  products: productReducer // ✅ Persisted
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -23,7 +24,7 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: false, // Required for redux-persist
+      serializableCheck: false, // ✅ Required for redux-persist
     }),
 });
 

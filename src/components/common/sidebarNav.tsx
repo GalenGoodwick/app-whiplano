@@ -12,7 +12,7 @@ const SidebarNav: React.FC = () => {
   };
 
   return (
-    <nav className="flex-1 p-4 space-y-8 ">
+    <nav className="flex-1 p-4 space-y-4 ">
       <a
         href="/dashboard"
         onClick={() => handleLinkClick("Dashboard")}

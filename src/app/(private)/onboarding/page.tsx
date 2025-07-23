@@ -1,5 +1,5 @@
 "use client";
-/* eslint-disable */
+ 
 
 import OnboardingComponent from "@/modules/onboarding/components/onboardingComponent";
 

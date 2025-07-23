@@ -7,15 +7,17 @@ import TopProjectsProgress from "@/components/common/myAssetsComponents/topProje
 
 function MyAssetsBase() {
   return (
-    <div className="flex w-full max-w-full p-6">
-      <div className="w-3/4 mr-2"> 
+    <div className="flex flex-col lg:flex-row w-full max-w-full p-4 sm:p-6 gap-4">
+      {/* Left/Main Section */}
+      <div className="w-full lg:w-3/4">
         <AssetsTable />
       </div>
 
-      <div className="w-1/4">
-      <BuySellWidget/>
+      {/* Right Sidebar */}
+      <div className="w-full lg:w-1/4 space-y-4">
+        <BuySellWidget />
         <TopProjectsProgress />
-        <RecentTransactions/>
+        <RecentTransactions />
       </div>
     </div>
   );

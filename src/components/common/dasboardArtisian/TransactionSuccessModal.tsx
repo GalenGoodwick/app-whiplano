@@ -6,15 +6,20 @@ interface TransactionSuccessModalProps {
   isOpen: boolean;
   onClose: () => void;
   trsTitle: string;
+  closeSidebar?: () => void; // optional
 }
 
-const TransactionSuccessModal: React.FC<TransactionSuccessModalProps> = ({ isOpen, onClose, trsTitle }) => {
-  if (!isOpen) return null; 
+const TransactionSuccessModal: React.FC<TransactionSuccessModalProps> = ({
+  isOpen,
+  onClose,
+  trsTitle,
+  closeSidebar,
+}) => {
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
       <div className="bg-white p-6 rounded-lg shadow-lg w-1/3">
-        {/* Modal Content */}
         <div className="flex justify-center mb-4">
           <div className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -28,12 +33,17 @@ const TransactionSuccessModal: React.FC<TransactionSuccessModalProps> = ({ isOpe
         </p>
         <p className="text-center text-gray-500 mb-6">Don’t go anywhere.</p>
 
-        {/* Action Buttons */}
         <div className="flex flex-col space-y-4">
-          <button onClick={onClose} className="w-full px-4 py-2 bg-pink-100 border border-pink-500 text-pink-500 rounded-md">
+          <button
+            onClick={() => {
+              onClose();
+              closeSidebar?.(); // ✅ safely close sidebar too
+            }}
+            className="w-full px-4 py-2 bg-pink-100 border border-pink-500 text-pink-500 rounded-md"
+          >
             Done
           </button>
-          <button className="w-full px-4 py-2 bg-white-500 text-black rounded-md border border-black-500">
+          <button className="w-full px-4 py-2 bg-white text-black rounded-md border border-black">
             Track TRS
           </button>
         </div>

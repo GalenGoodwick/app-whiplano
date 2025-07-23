@@ -1,5 +1,7 @@
+/* eslint-disable */
+
 import APIAxios from "../ApiAxios";
-import { ILoginVM, ISignupPayload, IOnboardingPayload } from "../modal/IatuhVM";
+import { ILoginVM, ISignupPayload } from "../modal/IatuhVM";
 
 const login = async (vm: ILoginVM) => {
   try {

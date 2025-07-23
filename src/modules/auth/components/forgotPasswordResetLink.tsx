@@ -1,3 +1,6 @@
+/* eslint-disable */
+
+
 import authService from "@/api-handlers/services/auth.service";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

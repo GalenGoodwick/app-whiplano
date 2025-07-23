@@ -8,7 +8,7 @@ import RightSidebar from "@/components/layout/rightBarLayout";
 export default function MarketplaceBase() {
   return (
     <div className="w-full">
-      <TopMovers showAuthor={false} HeadingText="Top Movers" />
+      <TopMovers showAuthor={true} HeadingText="Top Movers" />
       <TabSearchComponent />
       <TopMovers showAuthor={true} HeadingText="Trending In Arts" />
       <HotTRS />

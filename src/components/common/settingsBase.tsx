@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useState } from "react";
 import { CircleX, KeyRound, ChevronRight, AtSign, ArrowLeft } from "lucide-react";
 import { useRightSidebar } from "@/context/RightSidebarContext";

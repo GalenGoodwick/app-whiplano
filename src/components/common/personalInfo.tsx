@@ -1,3 +1,6 @@
+/* eslint-disable */
+
+
 import { useState } from "react";
 import { Edit } from "lucide-react";
 import { Avatar } from "@/components/common/avatar";

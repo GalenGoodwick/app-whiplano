@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
-import { useState, useRef } from "react";
+import {  useRef } from "react";
 
 export interface OnboardingStepProps {
   payload: IOnboardingPayload;

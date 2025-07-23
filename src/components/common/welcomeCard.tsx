@@ -1,6 +1,8 @@
+/* eslint-disable */
+
 import React from "react";
 import Image from 'next/image';
-import { useSelector, UseSelector } from "react-redux"; 
+import { useSelector } from "react-redux"; 
 
 
 const WelcomeCard: React.FC = () => {
@@ -9,7 +11,7 @@ const WelcomeCard: React.FC = () => {
 
 
   return (
-    <div className="flex items-center justify-between mt-8 p-6 bg-gradient-to-r from-[#FFEDF1] to-[#F5F6FA] rounded-xl shadow-md w-full lg:h-[180px] mx-auto">
+    <div className="flex flex-col lg:flex-row items-center justify-Dashboardbetween mt-8 p-6 bg-[#FFEDF1] rounded-xl shadow-md w-full lg:h-[180px] mx-auto text-center lg:text-left">
       {/* Left Content */}
       <div>
         <h2 className="text-2xl text-black">Yay, you made it {user.firstName}</h2>

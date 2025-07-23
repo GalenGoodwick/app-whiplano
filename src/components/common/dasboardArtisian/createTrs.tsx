@@ -1,74 +1,70 @@
-"use client";
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PreviewTrs from "./previewTrs"; // Assuming you have PreviewTrs component
-import {XCircle} from "lucide-react";
+import { XCircle } from "lucide-react";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useRightSidebar } from "@/context/RightSidebarContext";
-
 
 export default function CreateTrs() {
   const [trsImage, setTrsImage] = useState<string | null>(null);
   const [trsTitle, setTrsTitle] = useState("");
   const [trsDescription, setTrsDescription] = useState("");
-  const [trsPrice, setTrsPrice] = useState("");
+  const [modelName, setModelName] = useState("");
   const [trsAmount, setTrsAmount] = useState<number>(0);
-  const [trsCategory, setTrsCategory] = useState("");
   const [trsContent, setTrsContent] = useState<File | null>(null);
-  const [isPreviewVisible, setIsPreviewVisible] = useState(false); // State to manage PreviewTrs visibility
-  // const [isModalOpen, setIsModalOpen] = useState(false); 
-      const { closeSidebar } = useRightSidebar();
-  
+  const [isPreviewVisible, setIsPreviewVisible] = useState(false);
+  const { closeSidebar } = useRightSidebar();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true); // Ensure the component renders on the client
+  }, []);
 
   const handlePreviewClick = () => {
-    setIsPreviewVisible(true); // Show PreviewTrs when the Preview button is clicked
+    setIsPreviewVisible(true);
   };
 
   const handleBackClick = () => {
-    setIsPreviewVisible(false); // Go back to the CreateTrs form
+    setIsPreviewVisible(false);
   };
-
-  // const handleSubmitTrs = () => {
-  //   setIsPreviewVisible(false); 
-  //   setIsModalOpen(true); 
-  // };
 
   const trsData = {
     trsImage,
     trsTitle,
     trsDescription,
-    trsPrice,
+    modelName,
     trsAmount,
-    trsCategory,
-    trsContent
+    trsContent,
   };
 
   return (
     <div className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
-      {/* Show the CreateTrs form if isPreviewVisible is false */}
       {!isPreviewVisible && (
         <form className="text-sm">
-            <div className="flex flex-row justify-between">
-          <h2 className="text-2xl font-semibold mb-6">Create TRS</h2>
-          <XCircle size={20} color="#595959" strokeWidth={2} onClick={closeSidebar} />
+          <div className="flex flex-row justify-between">
+            <h2 className="text-2xl font-semibold mb-6">Create TRS</h2>
+            <XCircle size={20} color="#595959" strokeWidth={2} onClick={closeSidebar} />
           </div>
 
           {/* TRS Image */}
           <div className="mb-4">
             <div className="flex items-center space-x-4">
               <div
-                className={`w-14 h-14 bg-gray-200 border border-gray-300 rounded-md flex items-center justify-center ${trsImage ? "bg-cover bg-center" : ""}`}
-                style={{ backgroundImage: trsImage ? `url(${trsImage})` : "none" }}
+                className={`w-14 h-14 bg-gray-200 border border-gray-300 rounded-md flex items-center justify-center ${
+                  trsImage ? "bg-cover bg-center" : ""
+                }`}
+                style={trsImage && isClient ? { backgroundImage: `url(${trsImage})` } : undefined}
               ></div>
               <input
                 type="file"
                 accept="image/png, image/jpeg"
                 className="hidden"
                 onChange={(e) => {
-                    if (e.target.files && e.target.files[0]) {
-                      setTrsImage(URL.createObjectURL(e.target.files[0])); // Creates URL for the image preview
-                    }
-                  }}                id="trsImageInput"
+                  if (e.target.files && e.target.files[0]) {
+                    const file = e.target.files[0];
+                    setTrsImage(isClient ? URL.createObjectURL(file) : null);
+                  }
+                }}
+                id="trsImageInput"
               />
               {!trsImage && (
                 <div>
@@ -93,7 +89,7 @@ export default function CreateTrs() {
               value={trsTitle}
               onChange={(e) => setTrsTitle(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-md"
-              placeholder="e.g Elepon blue"
+              placeholder="e.g., Elepon Blue"
             />
           </div>
 
@@ -114,13 +110,13 @@ export default function CreateTrs() {
           {/* TRS Price and Unit Amount */}
           <div className="mb-4 flex justify-between space-x-4">
             <div className="flex-1">
-              <label className="block text-gray-700">TRS Price / Unit</label>
+              <label className="block text-gray-700">Model Name</label>
               <input
                 type="text"
-                value={trsPrice}
-                onChange={(e) => setTrsPrice(e.target.value)}
+                value={modelName}
+                onChange={(e) => setModelName(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                placeholder="e.g $5/unit"
+                placeholder="e.g., XYZ Model"
               />
             </div>
 
@@ -129,26 +125,11 @@ export default function CreateTrs() {
               <input
                 type="number"
                 value={trsAmount}
-                onChange={(e) => setTrsAmount(parseFloat(e.target.value))}
+                onChange={(e) => setTrsAmount(Number(e.target.value))}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                placeholder="e.g 400 units"
+                placeholder="e.g., 400 units"
               />
             </div>
-          </div>
-
-          {/* TRS Category */}
-          <div className="mb-4">
-            <label className="block text-gray-700">TRS Category</label>
-            <select
-              value={trsCategory}
-              onChange={(e) => setTrsCategory(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md"
-            >
-              <option value="">Select category</option>
-              <option value="electronics">Electronics</option>
-              <option value="fashion">Fashion</option>
-              <option value="home">Home</option>
-            </select>
           </div>
 
           {/* TRS Content Upload */}

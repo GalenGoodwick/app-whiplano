@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 
 import MyAssetsBase from '@/modules/myAssets/myAssetsBase'
 import React from 'react'

@@ -1,7 +1,8 @@
+/* eslint-disable */
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import authService from "@/api-handlers/services/auth.service";
 
@@ -22,7 +23,6 @@ const ForgotPasswordResetPassword = ({ token, setStep }: ForgotPasswordResetPass
     lowercase: false,
   });
   const { toast } = useToast();
-  const router = useRouter();
 
   // Validate password as user types
   useEffect(() => {

@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 "use client";
 import DashboardArtisianBase from "@/modules/dashboard-artisian/dashboard-artisianBase";
 import { Provider } from "react-redux";

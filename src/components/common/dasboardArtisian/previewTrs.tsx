@@ -1,56 +1,55 @@
-"use client";
+/* eslint-disable */
 
-import Image from 'next/image';
+
+import Image from "next/image";
 import React, { useState } from "react";
-import { ArrowLeft } from "lucide-react"; // Import ArrowLeft icon
-import { XCircle } from "lucide-react"; // Import CircleX icon
+import { ArrowLeft, XCircle } from "lucide-react";
 import { useRightSidebar } from "@/context/RightSidebarContext";
 import TransactionSuccessModal from "./TransactionSuccessModal";
+import { submitTRS } from "@/api-handlers/services/trs.service";
 
 interface PreviewTrsProps {
   trsData: {
     trsImage: string | null;
-    trsTitle: string;
     trsDescription: string;
-    trsPrice: string;
+    trsTitle: string;
+    modelName: string;
     trsAmount: number;
-    trsCategory: string;
     trsContent: File | null;
   };
-  onBack: () => void; // Function to go back to the CreateTrs form
+  onBack: () => void;
 }
 
 const PreviewTrs: React.FC<PreviewTrsProps> = ({ trsData, onBack }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); // For loading state
+  const { closeSidebar } = useRightSidebar();
 
-    const { closeSidebar } = useRightSidebar();
-  
+  const { trsImage, trsTitle, trsDescription, modelName, trsAmount, trsContent } = trsData;
 
-  const {
-    trsImage,
-    trsTitle,
-    trsDescription,
-    trsPrice,
-    trsAmount,
-    trsCategory,
-    trsContent
-  } = trsData;
-
-  const contentFileName = trsContent ? trsContent.name : "No content uploaded";
-
-  // Handle modal open
-  const handleSubmitClick = () => {
-    setIsModalOpen(true); // Open the modal when the button is clicked
-  }; // Close the sidebar when the button is clicked};
-
-  // Handle modal close
-  // const handleCloseModal = () => {
-  //   setIsModalOpen(false); 
-  // };
+  const handleSubmitClick = async () => {
+    setIsSubmitting(true);
+    try {
+      await submitTRS({
+        model_name: modelName,
+        title: trsTitle,
+        description: trsDescription,
+        number: trsAmount,
+        image: trsImage ? new File([], trsImage) : null, 
+        content: trsContent,
+      });
+      setIsModalOpen(true);
+      
+    } catch (error) {
+      console.error("Submission Error:", error);
+      alert("Failed to submit TRS. Please check your input and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="max-w-lg mx-auto bg-white rounded-lg">
-      {/* Header with Back Button */}
       <div className="flex items-center justify-between border-b pb-4 mb-4">
         <div className="flex items-center gap-2">
           <button onClick={onBack}>
@@ -61,72 +60,65 @@ const PreviewTrs: React.FC<PreviewTrsProps> = ({ trsData, onBack }) => {
         <XCircle size={20} color="#595959" strokeWidth={2} onClick={closeSidebar} />
       </div>
 
-      {/* TRS Image and Title */}
-      <div className="mb-4 flex items-center space-x-4">
-        {trsImage && (
-          <Image
-            src={trsImage}
-            alt="TRS Image"
-            className="w-20 h-20 object-cover rounded-md"
-          />
-        )}
-        <div>
-          <h3 className="text-lg font-semibold">{trsTitle}</h3>
+      {trsImage && (
+        <Image
+          src={trsImage}
+          alt="TRS Image"
+          width={80}
+          height={80}
+          className="rounded-md object-cover"
+        />
+      )}
+
+      <div className="mt-4">
+        <h3 className="text-lg font-semibold">{trsTitle}</h3>
+      </div>
+
+      <div className="mt-6">
+        <div className="flex justify-between border-t py-2">
+          <span>Model Name</span>
+          <span>{modelName}</span>
+        </div>
+        <div className="flex justify-between border-t py-2">
+          <span>Unit Amount</span>
+          <span>{trsAmount}</span>
+        </div>
+        <div className="flex justify-between border-t py-2">
+          <span>Content</span>
+          <span>{trsContent?.name || "No content uploaded"}</span>
+        </div>
+        <div className="border-t py-2">
+          <span>Description</span>
+          <p className="mt-2 text-sm">{trsDescription}</p>
         </div>
       </div>
 
-      {/* Price, Amount, Category, Content */}
-      <div className="flex flex-row items-center justify-between space-x-10 border-t border-gray-200 py-4">
-        <p className="text-sm">Price / Unit</p>
-        <p className="font-semibold">{trsPrice}</p>
-      </div>
-
-      <div className="flex flex-row items-center justify-between space-x-10 border-t border-gray-200 py-4">
-        <p className="text-sm">Unit Amount</p>
-        <p className="font-semibold">{trsAmount}</p>
-      </div>
-
-      <div className="flex flex-row items-center justify-between space-x-10 border-t border-gray-200 py-4">
-        <p className="text-sm">Category</p>
-        <p className="font-semibold">{trsCategory}</p>
-      </div>
-
-      <div className="flex flex-row items-center justify-between space-x-10 border-t border-gray-200 py-4">
-        <p className="text-sm">Content</p>
-        <p className="text-sm">{contentFileName}</p>
-      </div>
-
-      {/* Description */}
-      <div className="mb-4 border-t border-gray-200 py-4">
-        <p className="text-sm">Description</p>
-        <p className="text-xs font-extralight mt-2">{trsDescription}</p>
-      </div>
-
-      {/* Footer */}
-      <div className="mt-6">
-        <p className="text-xs text-gray-500 mb-4">
+      <div className="mt-4">
+        <p className="text-xs text-gray-500">
           By submitting this TRS, you agree to the{" "}
           <a href="#" className="text-blue-500">
             TRS Contract by Whiplano
           </a>
         </p>
-
         <button
-          className="w-full px-4 py-2 bg-gradient-to-r from-[#FE4773] to-[#6E114C] text-white rounded-md"
+          className="w-full mt-4 bg-gradient-to-r from-[#FE4773] to-[#6E114C] text-white py-2 rounded-md"
           onClick={handleSubmitClick}
+          disabled={isSubmitting}
         >
-          Submit TRS
+          {isSubmitting ? "Submitting..." : "Submit TRS"}
         </button>
       </div>
 
-      {/* Transaction Modal */}
-      {isModalOpen && (
-        <TransactionSuccessModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)} 
-        trsTitle={trsTitle} 
-      />
-      )}
+     {isModalOpen && (
+  <TransactionSuccessModal
+    isOpen={isModalOpen}
+    onClose={() => {
+      setIsModalOpen(false);
+      closeSidebar(); 
+    }}
+    trsTitle={trsTitle}
+  />
+)}
     </div>
   );
 };

@@ -28,7 +28,6 @@ const NewPasswordForm: React.FC<NewPasswordFormProps> = ({ onFinish }) => {
     newPassword === confirmPassword && confirmPassword !== "";
 
   const handleContinue = () => {
-    console.log("Password changed to:", newPassword);
     setShowSuccess(true);
 
     setTimeout(() => {

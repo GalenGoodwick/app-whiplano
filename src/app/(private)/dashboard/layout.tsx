@@ -13,9 +13,11 @@ export default function OnboardingLayout({
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="relative flex min-h-screen bg-white">
+    <div className="flex bg-white min-h-screen">
+      {/* Sidebar (fixed) */}
       <Sidebar />
 
+      {/* Backdrop for mobile */}
       {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-40 z-30 md:hidden"
@@ -25,11 +27,12 @@ export default function OnboardingLayout({
         ></div>
       )}
 
-      <div className="flex flex-col flex-grow ">
+      {/* Scrollable Main Area */}
+      <div className="flex flex-col w-full  h-screen overflow-y-auto">
         <RightSidebarProvider>
-          <DashboardHeader />
+          <DashboardHeader showCreateTRSButton={true} />
 
-          <main className="flex-grow flex justify-left relative z-10 p-4 sm:p-6 md:p-8">
+          <main className="flex-grow p-4 sm:p-6 md:p-8">
             {children}
           </main>
         </RightSidebarProvider>

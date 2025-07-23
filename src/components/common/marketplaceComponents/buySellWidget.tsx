@@ -17,7 +17,7 @@ const BuySellWidget = () => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-2xl mt-4 shadow-md border-2 border-gray-200 w-full ">
+    <div className="bg-white p-6 rounded-2xl mt-4 shadow-md border-2 border-gray-200  ">
       <div className="flex justify-between mb-4">
         <button
           onClick={() => handleTabClick("buy")}

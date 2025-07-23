@@ -1,123 +1,82 @@
-import Image from "next/image";
+'use client';
 
-interface ProductProps {
-  product: {
-    id: string;
-    name: string;
-    description: string;
-    price: string;
-    priceChange: string;
-    category: string;
-    author: string;
-    contract: string;
-    trsCreated: number;
-    trsSold: number;
-    royaltyEarned: number;
-    priceRange: string;
-    image: string;
-  };
+import Image from 'next/image';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
+
+interface ProductInfoProps {
+  productName: string;
 }
 
-const ProductInfo = ({ product }: ProductProps) => {
+const ProductInfo: React.FC<ProductInfoProps> = ({ productName }) => {
+  const allProducts = useSelector((state: RootState) => state.products.allProducts);
+
+  // Decode the URL component to match collection names with spaces
+  const decodedName = decodeURIComponent(productName);
+  const product = allProducts.find(p => p.collection_name === decodedName);
+  const details = product?.collection_data?.[0];
+
+  if (!product || !details) return <p>Product not found.</p>;
+
   return (
-    <div className="flex flex-col lg:flex-row bg-white p-6 rounded-xl shadow-md space-y-6 lg:space-y-0 lg:space-x-6">
-      {/* Left Section: Product Image */}
+    <div className="flex flex-col lg:flex-row bg-white p-4 md:p-6 rounded-xl border border-gray-200 shadow-lg space-y-6 lg:space-y-0 lg:space-x-6">
+      {/* Image Section */}
       <div className="w-full lg:w-1/2">
         <Image
-          src={product.image}
-          alt={product.name}
-          width={300}
+          src={details.image_uri || '/productImage.png'}
+          alt={details.name}
+          width={600}
           height={450}
-          className="rounded-lg"
+          className="w-full h-auto rounded-lg object-cover"
         />
       </div>
 
-      <div className="flex flex-col space-y-4 lg:w-2/3">
-        <div className="flex flex-row justify-between">
-          <h2 className="text-2xl font-semibold">
-            {product.name}
-          </h2>
-          <div className="flex flex-col space-y-2">
-            <p className="text-lg font-bold text-gray-800">
-              {product.price}
-            </p>
-            <p className="text-sm text-red-500">
-              {product.priceChange}
-            </p>
+      {/* Details Section */}
+      <div className="flex flex-col space-y-4 w-full lg:w-2/3">
+        {/* Header */}
+        <div className="flex justify-between items-start flex-wrap">
+          <h2 className="text-2xl font-semibold">{details.name}</h2>
+          <div className="flex flex-col items-end">
+            <p className="text-lg font-bold text-gray-800">${product.bid_price}</p>
+            <p className="text-sm text-green-600">Live</p>
           </div>
         </div>
 
-        <p className="text-sm text-gray-700">
-          {product.description}
-        </p>
+        {/* Description */}
+        <p className="text-sm text-gray-700">{details.description}</p>
 
-        <div className="grid grid-cols-2 gap-2 text-sm mb-4 space-y-4 bg-slate-60 border border-gray-200 p-2">
-          <div className="flex items-center space-x-4 mt-4">
-            <div className="flex items-center space-x-2">
-              <Image
-                src="/avatar.svg"
-                width={32}
-                height={32}
-                alt="Author"
-                className="w-8 h-8 rounded-full object-cover"
-              />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-medium">
-                {product.author}
-              </span>
-              <span className="text-sm text-gray-600">
-                {product.contract}
-              </span>
-            </div>
-          </div>
-          <div className="flex items-center space-x-4 mt-4">
-            <div className="flex items-center space-x-2">
-              <Image
-                src="/avatar.svg"
-                width={32}
-                height={32}
-                alt="Author"
-                className="w-8 h-8 rounded-full object-cover"
-              />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-medium">
-                {product.author}
-              </span>
-              <span className="text-sm text-gray-600">
-                {product.contract}
-              </span>
-            </div>
+        {/* Creator Info */}
+        <div className="flex items-center space-x-4 border border-gray-200 p-3 rounded-lg">
+          <Image
+            src="/avatar.svg"
+            width={32}
+            height={32}
+            alt="Author"
+            className="w-8 h-8 rounded-full object-cover"
+          />
+          <div className="flex flex-col">
+            <span className="text-sm font-medium">{details.creator}</span>
+            <span className="text-xs text-gray-600">ERC-721</span>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 text-sm mt-4">
-          <div className="flex flex-col justify-between font-semibold text-gray-500 space-y-2">
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 gap-4 text-sm mt-2">
+          <div className="flex flex-col font-semibold text-gray-500 space-y-1">
             <span>TRS Created:</span>
-            <span>
-              {product.trsCreated}
-            </span>
+            <span className="text-black">{details.number}</span>
           </div>
-          <div className="flex flex-col justify-between font-semibold text-gray-500 space-y-2">
-            <span>TRS Sold:</span>
-            <span className="text-red-500">
-              {product.trsSold} ({Math.round(
-                product.trsSold / product.trsCreated * 100
-              )}%)
-            </span>
+          <div className="flex flex-col font-semibold text-gray-500 space-y-1">
+            <span>TRS Left:</span>
+            <span className="text-red-500">{product.number_of_trs}</span>
           </div>
-          <div className="flex flex-col justify-between font-semibold text-gray-500 space-y-2">
+          <div className="flex flex-col font-semibold text-gray-500 space-y-1">
             <span>Royalty Earned:</span>
-            <span className="text-black">
-              {product.royaltyEarned}
-            </span>
+            <span className="text-black">—</span>
           </div>
-          <div className="flex flex-col justify-between font-semibold text-gray-500 space-y-2">
+          <div className="flex flex-col font-semibold text-gray-500 space-y-1">
             <span>Price Range:</span>
-            <span className="text-black">
-              {product.priceRange}
-            </span>
+            <span className="text-black">—</span>
           </div>
         </div>
       </div>
