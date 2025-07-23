@@ -1,6 +1,7 @@
 /*eslint-disable */
 "use client";
 
+import { useDispatch } from "react-redux";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -10,8 +11,10 @@ import { Eye, EyeOff } from "lucide-react";
 import authService from "@/api-handlers/services/auth.service";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import {setUser} from "@/store/userSlice";
 
 export default function Login() {
+  const dispatch = useDispatch();
   const { toast } = useToast();
   const router = useRouter();
 
@@ -29,17 +32,30 @@ export default function Login() {
     try {
       const response = await authService.login({ email, password });
       console.log("🚀 ~ handleLogin ~ response:", response);
-      if (!response.info.is_verified) {
-        toast({
-          variant: "destructive",
-          title: "Not Verified",
-          description: "Please check your email for verification link",
-        });
-        return;
-      }
+
+      const userData = {
+        username: response.info.username,
+        email: response.info.email,
+        firstName: response.info.first_name,
+        lastName: response.info.last_name,
+        bio: response.info.bio,
+        twitter: response.info.twitter,
+        telegram: response.info.telegram,
+        pfpUri: response.info.pfp_uri, // Handle profile picture URI
+      };
+
+      dispatch(setUser(userData));
+      // if (!response.info.is_verified) {
+      //   toast({
+      //     variant: "destructive",
+      //     title: "Not Verified",
+      //     description: "Please check your email for verification link",
+      //   });
+      //   return;
+      // }
       response.info.has_onboarded ? router.push("/dashboard") : router.push("/onboarding");
 
-      document.cookie = `authToken=${response.token}; path=/; Secure`;
+      document.cookie = `authToken=${response.access_token}; path=/; Secure`;
       document.cookie = `hasOnboarded=${response.info.has_onboarded}; path=/; Secure`;
 
     } catch (err) {

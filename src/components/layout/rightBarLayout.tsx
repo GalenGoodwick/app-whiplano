@@ -23,7 +23,7 @@ export default function RightSidebar() {
         initial={{ x: "90%" }}
         animate={{ x: isOpen ? "0%" : "85%" }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="fixed top-20 right-0 w-[440px] h-[796px] bg-white shadow-xl z-[100] p-5 flex flex-col rounded-tl-lg"
+        className="fixed top-10 right-0 w-[440px] min-h-screen bg-white shadow-xl z-[100] p-5 flex flex-col rounded-tl-lg rounded-bl-lg"
       >
         {/* Toggle Button */}
         <button
@@ -38,7 +38,7 @@ export default function RightSidebar() {
         </button>
 
         {/* Sidebar Content (Dynamic) */}
-        <div className="flex-grow">{sidebarContent}</div>
+        <div className="flex-grow overflow-y-auto">{sidebarContent}</div>
       </motion.div>
     </>
   );

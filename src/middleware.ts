@@ -31,7 +31,6 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-// ✅ Apply middleware only to relevant pages
 export const config = {
   matcher: ["/dashboard/:path*", "/onboarding", "/login"],
 };

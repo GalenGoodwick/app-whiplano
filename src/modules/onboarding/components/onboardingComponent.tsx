@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 "use client";
 
 import { useState } from "react";
@@ -5,8 +7,21 @@ import { Button } from "@/components/ui/button";
 import OnboardingStep1 from "./step1";
 import OnboardingStep2 from "./step2";
 import { motion, AnimatePresence } from "framer-motion";
+import authService from "@/api-handlers/services/auth.service";
+import { IOnboardingPayload } from "@/api-handlers/modal/IatuhVM";
 const OnboardingComponent = () => {
   const [step, setStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [payload, setPayload] = useState<IOnboardingPayload>({
+    first_name: "",
+    last_name: "",
+    username: "",
+    bio: null,
+    twitter: null,
+    telegram: null,
+    profile_pic: null,
+  });
+  console.log("🚀 ~ OnboardingComponent ~ payload:", payload)
 
   const handleNextStep = () => {
     setStep(2);
@@ -14,6 +29,34 @@ const OnboardingComponent = () => {
 
   const handlePreviousStep = () => {
     setStep(1);
+  };
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    
+    const formData = new FormData();
+    // Add required fields
+    formData.append("first_name", payload.first_name);
+    formData.append("last_name", payload.last_name);
+    formData.append("username", payload.username);
+    
+    // Add optional fields if they exist
+    if (payload.bio) formData.append("bio", payload.bio);
+    if (payload.twitter) formData.append("twitter", payload.twitter);
+    if (payload.telegram) formData.append("telegram", payload.telegram);
+    if (payload.profile_pic) formData.append("profile_pic", payload.profile_pic);
+
+    try {
+      // console.log(formData);
+      const response = await authService.onboarding(formData);
+      console.log("Onboarding successful:", response);
+      // Handle success (e.g., navigate to the dashboard or show a success message)
+    } catch (error) {
+      console.error("Onboarding failed:", error);
+      // Handle error (e.g., show an error message)
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -63,7 +106,7 @@ const OnboardingComponent = () => {
               exit={{ opacity: 0, x: 20 }}
               transition={{ duration: 0.3 }}
             >
-              <OnboardingStep1 />
+              <OnboardingStep1 payload={payload} setPayload={setPayload} />
             </motion.div>
           ) : (
             <motion.div
@@ -73,7 +116,7 @@ const OnboardingComponent = () => {
               exit={{ opacity: 0, x: 20 }}
               transition={{ duration: 0.3 }}
             >
-              <OnboardingStep2 />
+              <OnboardingStep2 payload={payload} setPayload={setPayload} />
             </motion.div>
           )}
         </AnimatePresence>
@@ -84,6 +127,7 @@ const OnboardingComponent = () => {
               variant="outline"
               className="w-1/3 text-gray-700"
               onClick={handlePreviousStep}
+              disabled={isSubmitting}
             >
               Back
             </Button>
@@ -91,9 +135,10 @@ const OnboardingComponent = () => {
 
           <Button
             className={`w-${step === 2 ? "2/3" : "full"} bg-pink-500 hover:bg-pink-600`}
-            onClick={handleNextStep}
+            onClick={step === 1 ? handleNextStep : handleSubmit}
+            disabled={isSubmitting}
           >
-            {step === 1 ? "Continue" : "Submit"}
+            {step === 1 ? "Continue" : isSubmitting ? "Submitting..." : "Submit"}
           </Button>
         </div>
 
